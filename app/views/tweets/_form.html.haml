@@ -1,9 +1,9 @@
-=form_with(model: @tweet, data: { controller: "tweet-form" }) do |f|
-  - if @tweet.errors.any?
+=form_with(model: tweet, class: local_assigns[:class], data: { controller: "tweet-form", target: "inline-edit.form", action: "ajax:beforeSend->tweet-form#submit"}) do |f|
+  - if tweet.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@tweet.errors.count, "error")} prohibited this tweet from being saved:"
+      %h2= "#{pluralize(tweet.errors.count, "error")} prohibited this tweet from being saved:"
       %ul
-        - @tweet.errors.full_messages.each do |message|
+        - tweet.errors.full_messages.each do |message|
           %li= message
   .form-group
     = f.text_area :body, class: "form-control", placeholder: "Tweet your thoughts...", data: { target: "tweet-form.body", action: "keyup->tweet-form#update"}
